@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+
+  "name": "Get TABLE Content",
+  "version": "0.1.0",
+  "description": "demo extension",
+
+  "content_scripts": [{
+    "js": ["jquery-3.3.1.min.js","clipboard-polyfill.js","content.js"],
+    "matches": ["http://*/*","https://*/*"]
+  }]
+
+}
