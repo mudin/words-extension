@@ -1,0 +1,18 @@
+.youvr-export-btn {
+    position: fixed;
+    display: block;
+    right: 0;
+    top: 160px;
+    z-index: 998;
+
+    padding: 6px;
+    width: 110px;
+    /* height: 40px; */
+    border-radius: 0 50px 50px 30px;
+    border: 3px solid #921bffba;
+    background: #a340ff9c;
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-shadow: 0px 0px 4px #a543c3bd;
+}
