@@ -6,13 +6,21 @@
   "icons": {
     "128": "icon.png"
   },
+  "permissions": [
+    "cookies",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
   "content_scripts": [
     {
       "js": [
         "jquery-3.3.1.min.js",
+        "js.cookie.js",
         "clipboard-polyfill.js",
         "property.js",
-        "content.js"
+        "exporter.js",
+        "importer.js"
       ],
       "css":[
         "content.css"

@@ -33,9 +33,20 @@ if (zigbangEl.length > 0) {
       $cells.each(function (cellIndex) {
         // Set the header text
 
-        headersText[cellIndex] = $($headers[cellIndex]).text().replace(/(\r\n\t|\n|\r|\t)/gm, "");
-        // Update the row object with the header/cell combo
-        detailTable[headersText[cellIndex]] = $(this).text().replace(/(\r\n\t|\n|\r|\t)/gm, "");
+        headersText[cellIndex] = $($headers[cellIndex]).text().replace(/(\r\n\t |\n|\r|\t| )/gm, "");
+
+        if (headersText[cellIndex] != "" && headersText[cellIndex] != " ") {
+          // Update the row object with the header/cell combo
+          if (headersText[cellIndex] == '옵션') {
+            detailTable["features"] = $(this).text().replace(/(\r\n\t |\n|\r|\t| )/gm, "").split(/[, ]/)
+            .filter(function (el) {
+              return el.length != 0
+            });
+          }
+          else {
+            detailTable[headersText[cellIndex]] = $(this).text().replace(/(\r\n\t |\n|\r|\t| )/gm, "");
+          }
+        }
       });
     });
 
@@ -114,7 +125,7 @@ if (dabangEl.length > 0) {
 
     $('.details-option ul li .active').each(function () {
       var text = $(this).text();
-      if(text){
+      if (text) {
         detailTable.features.push(text);
       }
     });
@@ -325,15 +336,45 @@ function downloadObjectAsJson(exportObj, exportName) {
 
   // exportObj.parsedJson = parseData(exportObj);
 
+
   console.log(exportObj);
   clipboard.writeText(JSON.stringify(exportObj));
-
+  // Cookies.set("youVRData",JSON.stringify(exportObj));
+  Cookies.set("youVRData", "adasadad 58374895bv3789b59", {domain: '/', path: ''});
   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj, null, 2));
   var downloadAnchorNode = document.createElement('a');
   downloadAnchorNode.setAttribute("href", dataStr);
   downloadAnchorNode.setAttribute("download", exportName + ".json");
   downloadAnchorNode.click();
   downloadAnchorNode.remove();
+
+
+  // popupWin.onload = function () {
+  //   popupWin.window.localStorage.youvrData = "skgjhsjhgfs";
+  // var textarea = popupWin.document.createElement('textarea');
+  // textarea.innerHTML = JSON.stringify(exportObj);
+  // textarea.id = "youvrData";
+  // popupWin.document.body.appendChild(textarea);
+  // }
+  //
+  // for (var i = 0; i < exportObj.images.length; i++) {
+  //   downloadImg(exportObj.images[i]);
+  // }
+
+  var mystring = JSON.stringify(exportObj);
+  var popupWin = window.open("http://youvr.kr/add-property-page#" + mystring, 'popupWin', '');
+
+}
+
+function downloadImg(url) {
+  var a = $("<a>")
+  .attr("href", url)
+  .attr("download", Date.now() + '.jpg')
+  .appendTo("body");
+
+  a[0].click();
+
+  a.remove();
 }
 
 
@@ -352,11 +393,11 @@ function parseData(data) {
       continue;
     }
 
-    if(key=='features') {
-      json[key]= [];
-      for(var i=0;i<data[key].length;i++){
+    if (key == 'features') {
+      json[key] = [];
+      for (var i = 0; i < data[key].length; i++) {
         var feature = getFeatureName(data[key][i]);
-        if(feature){
+        if (feature) {
           json[key].push(feature);
         }
         else {
