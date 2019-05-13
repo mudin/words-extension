@@ -1,34 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "YouVR Exp",
+  "name": "New Tab Word List",
   "version": "1.0.0",
-  "description": "Import Export your data from/to YouVR",
+  "description": "Random common English words with Uzbek translation",
   "icons": {
     "128": "icon.png"
   },
   "permissions": [
-    "cookies",
     "tabs",
+    "storage",
     "http://*/*",
     "https://*/*"
   ],
-  "content_scripts": [
-    {
-      "js": [
-        "jquery-3.3.1.min.js",
-        "js.cookie.js",
-        "clipboard-polyfill.js",
-        "property.js",
-        "exporter.js",
-        "importer.js"
-      ],
-      "css":[
-        "content.css"
-      ],
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ]
-    }
-  ]
+  "chrome_url_overrides": {"newtab": "start-page.html"}
 }
